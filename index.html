@@ -24,7 +24,7 @@
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-            --pix-color: #32bcad;
+            --pix-color: var(--primary);
             --pix-bg: #f0fffe;
         }
 
@@ -263,28 +263,13 @@
             font-size: 0.9rem;
         }
 
-        .payment-option-card.pix-card {
-            background: linear-gradient(145deg, #f0fffe 0%, #e8fbf8 100%);
-            border: 2px solid var(--pix-color);
-            box-shadow: 0 8px 24px rgba(50, 188, 173, 0.15);
-        }
+        
 
-        .payment-badge-promo {
-            position: absolute;
-            top: 12px;
-            right: -30px;
-            background: #ff6b35;
-            color: white;
-            padding: 4px 35px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            transform: rotate(45deg);
-            z-index: 2;
-        }
+        
 
         .payment-option-icon {
             font-size: 1.8rem;
-            color: var(--pix-color);
+            color: var(--primary);
             margin-bottom: 4px;
         }
 
@@ -297,7 +282,7 @@
         .payment-option-price {
             font-size: 1.5rem;
             font-weight: 900;
-            color: var(--pix-color);
+            color: var(--primary);
         }
 
         .payment-option-desc {
@@ -329,7 +314,7 @@
         .pix-input-group label {
             font-size: 0.75rem;
             font-weight: 700;
-            color: var(--pix-color);
+            color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -344,7 +329,7 @@
         }
 
         .pix-input-group input:focus {
-            border-color: var(--pix-color);
+            border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(50, 188, 173, 0.1);
         }
 
@@ -396,7 +381,7 @@
         }
 
         .pix-status-badge {
-            color: var(--pix-color);
+            color: var(--primary);
             font-weight: 800;
             font-size: 0.85rem;
             display: flex;
@@ -476,7 +461,7 @@
         .pix-code-value-label {
             font-size: 0.85rem;
             font-weight: 800;
-            color: var(--pix-color);
+            color: var(--primary);
         }
 
         .pix-code-input-container {
@@ -491,7 +476,7 @@
         }
 
         .pix-code-input-container:hover {
-            border-color: var(--pix-color);
+            border-color: var(--primary);
             box-shadow: 0 2px 8px rgba(50, 188, 173, 0.1);
         }
 
@@ -510,7 +495,7 @@
         .pix-copy-icon-btn {
             background: none;
             border: none;
-            color: var(--pix-color);
+            color: var(--primary);
             font-size: 1.1rem;
             cursor: pointer;
             padding: 4px 8px;
@@ -614,7 +599,7 @@
         }
 
         .duty-warning i {
-            color: var(--pix-color);
+            color: var(--primary);
             margin-top: 2px;
         }
 
@@ -1002,8 +987,8 @@
                         <div class="review-header-title"><i class="fas fa-credit-card"></i> Opções de Pagamento</div>
                     </div>
                     <div class="payment-options-container">
-                        <div class="payment-option-card pix-card" id="pay-now-pix">
-                            <div class="payment-badge-promo">Desconto Ativo</div>
+                        <div class="payment-option-card" id="pay-now-pix">
+                            
                             <div id="pix-original-content">
                                 <div class="payment-option-icon"><i class="fas fa-bolt"></i></div>
                                 <div class="payment-option-title">Pagar Agora - Pix</div>
