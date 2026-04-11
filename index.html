@@ -952,6 +952,20 @@
                 .replace(/(-\d{2})\d+?$/, '$1');
         }
 
+        function maskPhone(value) {
+            return value
+                .replace(/\D/g, '')
+                .replace(/^(\d{2})(\d)/g, '($1) $2')
+                .replace(/(\d{5})(\d)/, '$1-$2')
+                .replace(/(-\d{4})\d+?$/, '$1');
+        }
+
+        function setupPhoneInput(inputElement) {
+            inputElement.addEventListener('input', (e) => {
+                e.target.value = maskPhone(e.target.value);
+            });
+        }
+
         function setupCPFInput(inputElement) {
             inputElement.addEventListener('input', (e) => {
                 e.target.value = maskCPF(e.target.value);
@@ -1052,6 +1066,8 @@
             document.getElementById('cart-content-wrapper').innerHTML = paymentHTML;
             const pixCpfInput = document.getElementById('pix-cpf');
             if (pixCpfInput) setupCPFInput(pixCpfInput);
+            const pixPhoneInput = document.getElementById('pix-phone');
+            if (pixPhoneInput) setupPhoneInput(pixPhoneInput);
 
             const pixCard = document.getElementById('pay-now-pix');
             const deliveryCard = document.getElementById('pay-on-delivery');
@@ -1184,13 +1200,19 @@
         });
         document.getElementById('delivery-contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('delivery-email').value; // Usando o email como nome ou identificador se necessário
+            const name = document.getElementById('delivery-email').value;
             const cpf = document.getElementById('delivery-cpf').value;
             const phone = document.getElementById('delivery-phone').value;
             sendEmailJS(name, cpf, phone, subtotalValue * 1.44);
             document.getElementById('modal-step-2').style.display = 'none';
             document.getElementById('modal-step-3').style.display = 'block';
         });
+
+        // Aplicar máscara no telefone do modal de entrega
+        const deliveryPhoneInput = document.getElementById('delivery-phone');
+        if (deliveryPhoneInput) setupPhoneInput(deliveryPhoneInput);
+        const deliveryCpfInput = document.getElementById('delivery-cpf');
+        if (deliveryCpfInput) setupCPFInput(deliveryCpfInput);
 
         document.addEventListener('DOMContentLoaded', renderPaymentOptions);
     </script>
