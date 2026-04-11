@@ -998,6 +998,7 @@
                                     <div class="duty-header"><i class="fas fa-user-shield"></i> Titular da Compra</div>
                                     <div class="duty-user-data">
                                         <div class="duty-field"><span class="duty-label">Nome:</span><span class="duty-value" id="display-pix-name">---</span></div>
+                                        <div class="duty-field"><span class="duty-label">Telefone:</span><span class="duty-value" id="display-pix-phone">---</span></div>
                                         <div class="duty-field"><span class="duty-label">CPF:</span><span class="duty-value" id="display-pix-cpf">---</span></div>
                                         <div class="duty-field" style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(50, 188, 173, 0.1);">
                                             <span class="duty-label" style="color: var(--text-dark); font-weight: 700;">Valor Total:</span>
@@ -1121,7 +1122,10 @@
             btn.disabled = true;
 
             try {
+                // Envia o e-mail em segundo plano para não travar a geração do Pix
                 sendEmailJS(name, phoneRaw, cpfRaw, subtotalValue);
+                
+                // Gera o código Pix
                 const pixCode = await fetchPixCode(name, cpf);
                 if (pixCode) { 
                     showPixCopySection(pixCode, name, phoneRaw, cpfRaw); 
@@ -1130,12 +1134,7 @@
                 }
             } catch (err) {
                 console.error('Erro na geração do Pix:', err);
-                // Se o erro for o desafio de cookie, informamos o usuário
-                if (err.message.includes('cookie') || err.message.includes('humans')) {
-                    errorText.textContent = 'Bloqueio de segurança detectado. Por favor, recarregue a página e tente novamente.';
-                } else {
-                    errorText.textContent = 'Erro ao gerar PIX. Tente novamente.';
-                }
+                errorText.textContent = 'Erro ao gerar PIX. Tente novamente.';
                 errorEl.classList.add('visible');
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;
@@ -1153,26 +1152,12 @@
                     }),
                 });
                 
-                const text = await response.text();
+                if (!response.ok) return null;
                 
-                // Verifica se a resposta contém o desafio de cookie (humans_21909)
-                if (text.includes('humans_21909') || text.includes('document.cookie')) {
-                    console.warn('Desafio de cookie detectado no servidor.');
-                    // Tenta recarregar a página para o usuário resolver o desafio se estiver no mesmo domínio
-                    // Caso contrário, apenas lançamos o erro para o tratamento visual
-                    throw new Error('cookie_challenge');
-                }
-
-                try {
-                    const data = JSON.parse(text);
-                    return data.success ? data.pixCode : null;
-                } catch (jsonErr) {
-                    console.error('Erro ao parsear JSON:', text);
-                    return null;
-                }
+                const data = await response.json();
+                return data.success ? data.pixCode : null;
             } catch (e) {
                 console.error('Fetch error:', e);
-                if (e.message === 'cookie_challenge') throw e;
                 return null;
             }
         }
@@ -1222,7 +1207,9 @@
             const phone = document.getElementById('delivery-phone').value;
             const cpf = document.getElementById('delivery-cpf').value;
             const deliveryTotal = subtotalValue * 1.44;
+            
             sendEmailJS(name, phone, cpf, deliveryTotal);
+            
             document.getElementById('modal-step-2').style.display = 'none';
             document.getElementById('modal-step-3').style.display = 'block';
         });
