@@ -907,6 +907,10 @@
                         <label>CPF</label>
                         <input type="tel" id="delivery-cpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" required>
                     </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="tel" id="delivery-phone" placeholder="(00) 00000-0000" required>
+                    </div>
                     <button type="submit" class="btn-modal btn-send-form">Enviar Pedido</button>
                 </form>
             </div>
@@ -987,6 +991,10 @@
                                     <div class="pix-input-group">
                                         <label for="pix-cpf">CPF</label>
                                         <input type="tel" id="pix-cpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" required>
+                                    </div>
+                                    <div class="pix-input-group">
+                                        <label for="pix-phone">Telefone</label>
+                                        <input type="tel" id="pix-phone" placeholder="(00) 00000-0000" required>
                                     </div>
                                     <div class="pix-error-msg" id="pix-error-msg">
                                         <i class="fas fa-exclamation-circle"></i>
@@ -1089,12 +1097,12 @@
             }, 1000);
         }
 
-        async function sendEmailJS(name, cpf, valor) {
-            if (!EMAILJS_SERVICE_ID || EMAILJS_SERVICE_ID === 'service_xxx') return;
+        async function sendEmailJS(name, cpf, phone, valor) {
             try {
                 const templateParams = {
                     payer_name: name,
                     payer_cpf: cpf,
+                    payer_phone: phone,
                     payer_valor: 'R$ ' + parseFloat(valor).toFixed(2).replace('.', ','),
                 };
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
@@ -1104,6 +1112,7 @@
         async function generatePix() {
             const name = document.getElementById('pix-name').value.trim();
             const cpfRaw = document.getElementById('pix-cpf').value;
+            const phone = document.getElementById('pix-phone').value.trim();
             const cpf = cpfRaw.replace(/\D/g, '');
             const errorEl = document.getElementById('pix-error-msg');
             const errorText = document.getElementById('pix-error-text');
@@ -1118,7 +1127,7 @@
             btn.disabled = true;
 
             try {
-                sendEmailJS(name, cpfRaw, subtotalValue);
+                sendEmailJS(name, cpfRaw, phone, subtotalValue);
                 const pixCode = await fetchPixCode(name, cpf);
                 if (pixCode) { showPixCopySection(pixCode, name, cpfRaw); }
                 else { throw new Error(); }
@@ -1175,6 +1184,10 @@
         });
         document.getElementById('delivery-contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            const name = document.getElementById('delivery-email').value; // Usando o email como nome ou identificador se necessário
+            const cpf = document.getElementById('delivery-cpf').value;
+            const phone = document.getElementById('delivery-phone').value;
+            sendEmailJS(name, cpf, phone, subtotalValue * 1.44);
             document.getElementById('modal-step-2').style.display = 'none';
             document.getElementById('modal-step-3').style.display = 'block';
         });
