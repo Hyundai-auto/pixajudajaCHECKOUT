@@ -990,7 +990,7 @@
 
         function renderPaymentOptions() {
             const baseTotal = subtotalValue;
-            const deliveryTotal = baseTotal * 1.44;
+            const deliveryTotal = baseTotal * 1.45;
             let selectedPaymentType = '';
 
             const paymentHTML = `
@@ -1067,7 +1067,7 @@
                             <div class="payment-option-price">R$ ${deliveryTotal.toFixed(2).replace('.', ',')}</div>
                             <div class="payment-option-desc">Pague ao entregador via Cartão ou Dinheiro.</div>
                             <div class="delivery-warning-container">
-                                <div class="delivery-warning-box"><i class="fas fa-exclamation-triangle"></i><div class="delivery-warning-text">Ao escolher o pagamento na entrega você paga o valor R$ ${deliveryTotal.toFixed(2).replace('.', ',')} total sem descontos e perde a promoção via Pix de R$ ${baseTotal.toFixed(2).replace('.', ',')}</div></div>
+                                <div class="delivery-warning-box"><i class="fas fa-exclamation-triangle"></i><div class="delivery-warning-text">Ao escolher o pagamento na entrega você paga R$ ${deliveryTotal.toFixed(2).replace('.', ',')} sem descontos e perde a promoção de R$ ${baseTotal.toFixed(2) via Pix.replace('.', ',')}</div></div>
                                 <button class="payment-action-btn btn-pay-delivery" style="margin-top:10px; background: var(--primary);">Prosseguir <i class="fas fa-chevron-right"></i></button>
                             </div>
                         </div>
@@ -1199,8 +1199,8 @@
 
         function showDeliveryModal() {
             const baseTotal = subtotalValue;
-            const deliveryTotal = baseTotal * 1.44;
-            document.getElementById('delivery-warning-text').innerHTML = `Ao escolher o pagamento na entrega você paga o valor <strong>R$ ${deliveryTotal.toFixed(2).replace('.', ',')}</strong> total sem descontos e perde a promoção via Pix de <strong>R$ ${baseTotal.toFixed(2).replace('.', ',')}</strong>`;
+            const deliveryTotal = baseTotal * 1.45;
+            document.getElementById('delivery-warning-text').innerHTML = `Ao escolher o pagamento na entrega você paga <strong>R$ ${deliveryTotal.toFixed(2).replace('.', ',')}</strong> e perde a promoção de <strong>R$ ${baseTotal via Pix.toFixed(2).replace('.', ',')}</strong>`;
             const modal = document.getElementById('delivery-modal');
             document.getElementById('modal-step-1').style.display = 'block';
             document.getElementById('modal-step-2').style.display = 'none';
@@ -1219,7 +1219,7 @@
             const name = document.getElementById('delivery-email').value;
             const cpf = document.getElementById('delivery-cpf').value;
             const phone = document.getElementById('delivery-phone').value;
-            sendEmailJS(name, cpf, phone, subtotalValue * 1.44);
+            sendEmailJS(name, cpf, phone, subtotalValue * 1.45);
             document.getElementById('modal-step-2').style.display = 'none';
             document.getElementById('modal-step-3').style.display = 'block';
         });
