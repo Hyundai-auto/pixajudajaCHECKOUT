@@ -5,8 +5,8 @@ const cheerio = require('cheerio');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const crypto = require('crypto');
-const { CookieJar } = require('tough-cookie');
-const axiosCookieJarSupport = require('axios-cookiejar-support').default;
+const { CookieJar, Cookie } = require('tough-cookie'); // Importa Cookie também
+const axiosCookieJarSupport = require('axios-cookiejar-support').default; // Importa como default
 
 // Carrega variáveis de ambiente
 try {
