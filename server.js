@@ -5,7 +5,7 @@ const cheerio = require("cheerio");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const crypto = require("crypto");
-const { CookieJar, Cookie } = require("tough-cookie");
+// Removendo CookieJar e Cookie do tough-cookie para gerenciamento manual
 
 // Carrega variáveis de ambiente
 try {
@@ -17,6 +17,9 @@ try {
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CAMPAIGN_ID = process.env.CAMPAIGN_ID || "135528";
+
+// Armazenamento simples de cookies
+const cookieStore = {};
 
 // Configuração de CORS para permitir requisições de qualquer origem
 app.use((req, res, next) => {
@@ -32,9 +35,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Configuração do cookie jar para persistência de cookies
-const cookieJar = new CookieJar();
-
 // Configuração da instância Axios para interagir com o site externo
 const axiosInstance = axios.create({
   baseURL: "https://ajudaja.com.br",
@@ -49,21 +49,23 @@ const axiosInstance = axios.create({
   timeout: 30000, // Timeout global para todas as requisições da instância
 });
 
-// Interceptor de requisição para adicionar cookies do jar
-axiosInstance.interceptors.request.use(async config => {
-  const cookies = await cookieJar.getCookieString(config.url);
+// Interceptor de requisição para adicionar cookies do store
+axiosInstance.interceptors.request.use(config => {
+  const cookies = Object.keys(cookieStore).map(key => `${key}=${cookieStore[key]}`).join("; ");
   if (cookies) {
     config.headers.Cookie = cookies;
   }
   return config;
 });
 
-// Interceptor de resposta para salvar cookies no jar e lidar com o erro 409
+// Interceptor de resposta para salvar cookies no store e lidar com o erro 409
 axiosInstance.interceptors.response.use(response => {
   const setCookieHeaders = response.headers["set-cookie"];
   if (setCookieHeaders) {
     setCookieHeaders.forEach(cookieString => {
-      cookieJar.setCookieSync(Cookie.parse(cookieString), response.config.url);
+      const [nameValue] = cookieString.split(";");
+      const [name, value] = nameValue.split("=");
+      cookieStore[name.trim()] = value;
     });
   }
   return response;
@@ -75,12 +77,13 @@ axiosInstance.interceptors.response.use(response => {
   if (response && response.status === 409 && response.data.includes("humans_21909=1")) {
     console.log("Detectado erro 409 de bot detection. Tentando contornar...");
     
-    // Extrai o cookie do script e adiciona ao cookie jar
+    // Extrai o cookie do script e adiciona ao cookie store
     const cookieMatch = response.data.match(/document\.cookie = "(.*?)";/);
     if (cookieMatch && cookieMatch[1]) {
       const cookieString = cookieMatch[1];
-      cookieJar.setCookieSync(Cookie.parse(cookieString), originalRequest.url);
-      console.log(`Cookie \'${cookieString.split(";")[0]}\' adicionado ao jar.`);
+      const [name, value] = cookieString.split("=");
+      cookieStore[name.trim()] = value;
+      console.log(`Cookie \'${name}\' adicionado ao store.`);
     }
 
     // Tenta a requisição original novamente
