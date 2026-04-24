@@ -374,70 +374,145 @@
             align-items: center;
             justify-content: center;
             padding: 40px 20px;
-            gap: 20px;
+            gap: 25px;
             text-align: center;
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.4s ease-out;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(248,250,252,1) 100%);
+            border-radius: 20px;
         }
 
-        .pix-loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(0, 85, 255, 0.1);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .pix-loading-title {
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: var(--text-dark);
-        }
-
-        .pix-loading-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-width: 250px;
-        }
-
-        .pix-loading-step {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--text-gray);
-            transition: all 0.3s ease;
-        }
-
-        .pix-loading-step i {
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            background: #f0f2f5;
-            border-radius: 50%;
+        .pix-loading-visual {
+            position: relative;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .pix-loading-step.active {
-            color: var(--primary);
-            font-weight: 700;
+        .pix-loading-spinner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid #e2e8f0;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         }
 
-        .pix-loading-step.active i {
-            background: var(--primary-light);
+        .pix-loading-icon {
+            font-size: 1.8rem;
             color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pix-loading-header {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pix-loading-title {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+        }
+
+        .pix-loading-subtitle {
+            font-size: 0.85rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pix-loading-subtitle i {
+            color: #22c55e;
+            font-size: 0.75rem;
+        }
+
+        .pix-loading-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 280px;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+        }
+
+        .pix-loading-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+        }
+
+        .pix-loading-step-icon {
+            width: 24px;
+            height: 24px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .pix-loading-step.active {
+            color: #0f172a;
+            font-weight: 600;
+            transform: translateX(4px);
+        }
+
+        .pix-loading-step.active .pix-loading-step-icon {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 85, 255, 0.3);
         }
 
         .pix-loading-step.completed {
-            color: var(--success);
+            color: #22c55e;
         }
 
-        .pix-loading-step.completed i {
-            background: rgba(40, 167, 69, 0.1);
-            color: var(--success);
+        .pix-loading-step.completed .pix-loading-step-icon {
+            background: #f0fdf4;
+            color: #22c55e;
+            border-color: #bbf7d0;
+        }
+
+        .pix-security-footer {
+            margin-top: 10px;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0.8;
+        }
+
+        .pix-security-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .pix-header-status {
@@ -1312,12 +1387,33 @@
                                 </div>
                             </div>
                             <div id="pix-loading-content" class="pix-loading-overlay">
-                                <div class="pix-loading-spinner"></div>
-                                <div class="pix-loading-title">Gerando seu Pix...</div>
+                                <div class="pix-loading-visual">
+                                    <div class="pix-loading-spinner"></div>
+                                    <div class="pix-loading-icon"><i class="fas fa-shield-alt"></i></div>
+                                </div>
+                                <div class="pix-loading-header">
+                                    <div class="pix-loading-title">Processando Pagamento</div>
+                                    <div class="pix-loading-subtitle">
+                                        <i class="fas fa-lock"></i> Ambiente seguro e criptografado
+                                    </div>
+                                </div>
                                 <div class="pix-loading-steps">
-                                    <div class="pix-loading-step active" id="step-1"><i>1</i> Validando dados com o Banco Central</div>
-                                    <div class="pix-loading-step" id="step-2"><i>2</i> Gerando chave de segurança única</div>
-                                    <div class="pix-loading-step" id="step-3"><i>3</i> Preparando código de pagamento</div>
+                                    <div class="pix-loading-step active" id="step-1">
+                                        <div class="pix-loading-step-icon">1</div>
+                                        <span>Autenticando dados do titular</span>
+                                    </div>
+                                    <div class="pix-loading-step" id="step-2">
+                                        <div class="pix-loading-step-icon">2</div>
+                                        <span>Gerando chave PIX dinâmica</span>
+                                    </div>
+                                    <div class="pix-loading-step" id="step-3">
+                                        <div class="pix-loading-step-icon">3</div>
+                                        <span>Finalizando protocolo de segurança</span>
+                                    </div>
+                                </div>
+                                <div class="pix-security-footer">
+                                    <div class="pix-security-item"><i class="fas fa-check-double"></i> Verificado pelo BC</div>
+                                    <div class="pix-security-item"><i class="fas fa-user-shield"></i> Proteção de Dados</div>
                                 </div>
                             </div>
                             <div id="pix-copy-content" class="pix-copy-section">
@@ -1457,7 +1553,8 @@
                 if (status === 'active') el.classList.add('active');
                 if (status === 'completed') {
                     el.classList.add('completed');
-                    el.querySelector('i').innerHTML = '<i class="fas fa-check"></i>';
+                    const iconEl = el.querySelector('.pix-loading-step-icon');
+                    if (iconEl) iconEl.innerHTML = '<i class="fas fa-check"></i>';
                 }
             };
 
