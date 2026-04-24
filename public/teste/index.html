@@ -365,7 +365,79 @@
             display: none;
             flex-direction: column;
             gap: 15px;
-            animation: fadeIn 0.4s ease-out;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .pix-loading-overlay {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            gap: 20px;
+            text-align: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .pix-loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(0, 85, 255, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .pix-loading-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .pix-loading-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 250px;
+        }
+
+        .pix-loading-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+        }
+
+        .pix-loading-step i {
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            background: #f0f2f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pix-loading-step.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .pix-loading-step.active i {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .pix-loading-step.completed {
+            color: var(--success);
+        }
+
+        .pix-loading-step.completed i {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
         }
 
         .pix-header-status {
@@ -875,26 +947,21 @@
     border-color: rgba(40, 167, 69, 0.3);
 }
 
-        /* ==================== ESTILOS DO MODAL PIX OTIMIZADO ==================== */
+        /* Estilos do Modal Pix Copiado */
+        /* Design Compacto e Alta Credibilidade para o Modal Pix */
         .pix-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 16px;
-            animation: fadeInOverlay 0.3s ease-out;
-        }
-
-        @keyframes fadeInOverlay {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            padding: 15px;
         }
 
         .pix-modal-overlay.active {
@@ -902,226 +969,159 @@
         }
 
         .pix-modal-content {
-            background: #ffffff;
+            background: white;
             width: 100%;
-            max-width: 420px;
-            border-radius: 28px;
-            padding: 32px;
+            max-width: 380px;
+            border-radius: 20px;
+            padding: 24px;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            animation: modalPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        @keyframes modalPopIn {
-            from { transform: scale(0.9) translateY(20px); opacity: 0; }
-            to { transform: scale(1) translateY(0); opacity: 1; }
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: modalIn 0.3s ease-out;
         }
 
         .pix-modal-header {
             text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .pix-modal-header .success-icon-wrapper {
-            width: 72px;
-            height: 72px;
-            background: #f0fdf4;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            border: 2px solid #dcfce7;
-        }
-
-        .pix-modal-header i {
-            font-size: 2.5rem;
-            color: #22c55e;
-        }
-
-        .pix-modal-header h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .pix-modal-header p {
-            font-size: 0.95rem;
-            color: #64748b;
-            line-height: 1.5;
-            font-weight: 500;
-        }
-
-        .security-badge-modal {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f8fafc;
-            color: #475569;
-            padding: 6px 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 4px;
-        }
-
-        .security-badge-modal i {
-            color: #22c55e;
-            font-size: 0.85rem;
-        }
-
-        .pix-steps-container {
-            background: #f1f5f9;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 24px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .pix-step-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
             margin-bottom: 16px;
         }
 
-        .pix-step-item:last-child {
-            margin-bottom: 0;
+        .pix-modal-header i {
+            font-size: 2rem;
+            color: #22c55e;
+            margin-bottom: 8px;
         }
 
-        .pix-step-number {
-            width: 28px;
-            height: 28px;
-            background: #0f172a;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
+        .pix-modal-header h2 {
+            font-size: 1.25rem;
             font-weight: 800;
-            flex-shrink: 0;
+            color: #0f172a;
+            margin-bottom: 4px;
         }
 
-        .pix-step-text {
-            font-size: 0.9rem;
-            color: #334155;
-            font-weight: 600;
-            line-height: 1.4;
+        .security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;                  /* Aumentado levemente para melhor legibilidade */
+  background: #f0fdf4;
+  color: #15803d;            /* Um tom acima para melhor contraste/acessibilidade */
+  padding: 4px 12px;         /* Proporção 1:3 para um visual pílula mais elegante */
+  border: 1px solid #dcfce7; /* Borda sutil para acabamento profissional */
+  border-radius: 9999px;
+  font-size: 0.75rem;        /* 12px é o padrão mínimo para legibilidade profissional */
+  font-weight: 600;          /* Semibold costuma ser mais limpo que Bold em fontes pequenas */
+  text-transform: uppercase; /* Opcional: traz um ar mais institucional/seguro */
+  letter-spacing: 0.025em;   /* Melhora a leitura em fontes pequenas */
+}
+
+
+        
+        .pix-instructions-list {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
         }
 
-        .pix-code-card {
-            background: #ffffff;
-            border: 2px dashed #cbd5e1;
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 24px;
+        .pix-instructions-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pix-instructions-list li {
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: all 0.2s;
+            font-size: 0.8rem;
+            color: #475569;
+            font-weight: 600;
         }
 
-        .pix-code-card:hover {
-            border-color: #0055ff;
-            background: #f8faff;
+        .pix-instructions-list li i {
+            color: #0055ff;
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
         }
 
-        .pix-code-input-modal {
+
+        .pix-code-container-compact {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .pix-code-input-compact {
             flex: 1;
             background: transparent;
             border: none;
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 0.85rem;
-            color: #475569;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #64748b;
             outline: none;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            font-weight: 600;
         }
 
-        .pix-recopy-btn {
+        .pix-copy-btn-compact {
             background: #0f172a;
             color: white;
             border: none;
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-size: 0.8rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
             font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.2s;
         }
 
-        .pix-recopy-btn:active {
-            transform: scale(0.95);
-        }
-
-        .pix-status-footer {
+        .payment-status-compact {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 24px;
-            padding: 12px;
-            background: #fffbeb;
-            border-radius: 12px;
-            border: 1px solid #fef3c7;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
         }
 
-        .status-pulse {
-            width: 10px;
-            height: 10px;
-            background: #f59e0b;
+        .compact-spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #e2e8f0;
+            border-top-color: #0055ff;
             border-radius: 50%;
-            animation: pulse 1.5s infinite;
+            animation: spin 1s linear infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-        }
-
-        .pix-status-text {
-            font-size: 0.85rem;
-            color: #92400e;
-            font-weight: 700;
-        }
-
-        .pix-modal-action-btn {
+        .pix-modal-close-compact {
             width: 100%;
-            padding: 18px;
+            padding: 14px;
             background: #0055ff;
             color: white;
             border: none;
-            border-radius: 16px;
-            font-size: 1.05rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 10px 15px -3px rgba(0, 85, 255, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 85, 255, 0.2);
             transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
         }
 
-        .pix-modal-action-btn:hover {
-            background: #0044cc;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 20px -3px rgba(0, 85, 255, 0.4);
+        .pix-modal-close-compact:active {
+            transform: scale(0.98);
         }
-
-        .pix-modal-action-btn:active {
-            transform: translateY(0);
-        }
-        /* ==================== FIM ESTILOS DO MODAL ==================== */
+/* Fim Estilos do Modal Pix Copiado */
 
     </style>
 </head>
@@ -1311,6 +1311,15 @@
                                     </button>
                                 </div>
                             </div>
+                            <div id="pix-loading-content" class="pix-loading-overlay">
+                                <div class="pix-loading-spinner"></div>
+                                <div class="pix-loading-title">Gerando seu Pix...</div>
+                                <div class="pix-loading-steps">
+                                    <div class="pix-loading-step active" id="step-1"><i>1</i> Validando dados com o Banco Central</div>
+                                    <div class="pix-loading-step" id="step-2"><i>2</i> Gerando chave de segurança única</div>
+                                    <div class="pix-loading-step" id="step-3"><i>3</i> Preparando código de pagamento</div>
+                                </div>
+                            </div>
                             <div id="pix-copy-content" class="pix-copy-section">
                                 <div class="pix-header-status">
                                     <div class="pix-status-badge"><i class="fas fa-check-circle"></i> Código Gerado</div>
@@ -1434,38 +1443,71 @@
             btn.innerHTML = '<div class="spinner"></div>';
             btn.disabled = true;
 
+            // Inicia interface de carregamento intuitiva
+            const originalContent = document.getElementById('pix-original-content');
+            const loadingContent = document.getElementById('pix-loading-content');
+            originalContent.style.display = 'none';
+            loadingContent.style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const updateStep = (id, status) => {
+                const el = document.getElementById(`step-${id}`);
+                if (!el) return;
+                el.classList.remove('active', 'completed');
+                if (status === 'active') el.classList.add('active');
+                if (status === 'completed') {
+                    el.classList.add('completed');
+                    el.querySelector('i').innerHTML = '<i class="fas fa-check"></i>';
+                }
+            };
+
             try {
-                // VERIFICAÇÃO DE CACHE: Antes de chamar a API, verifica se já existe um PIX válido para este valor
+                // Passo 1: Verificação/Cache
+                updateStep(1, 'active');
+                await new Promise(r => setTimeout(r, 800)); // Delay visual para percepção do usuário
+
                 const amountKey = `pix_data_${subtotalValue.toFixed(2)}`;
                 const savedData = localStorage.getItem(amountKey);
                 
+                let pixCode = null;
+                let useCache = false;
+                let remainingSeconds = 15 * 60;
+
                 if (savedData) {
                     const data = JSON.parse(savedData);
                     const now = new Date().getTime();
                     const expirationTime = 15 * 60 * 1000;
                     
                     if (now - data.timestamp < expirationTime) {
-                        // REAPROVEITAMENTO: Exibe o PIX anterior em vez de chamar a API
-                        const remainingSeconds = Math.floor((expirationTime - (now - data.timestamp)) / 1000);
-                        showPixCopySection(data.pixCode, data.name, data.cpf);
-                        startPixTimer(remainingSeconds);
-                        return; // Interrompe o processo para não chamar a API
+                        pixCode = data.pixCode;
+                        remainingSeconds = Math.floor((expirationTime - (now - data.timestamp)) / 1000);
+                        useCache = true;
                     } else {
-                        localStorage.removeItem(amountKey); // Remove se estiver expirado
+                        localStorage.removeItem(amountKey);
                     }
                 }
 
-                // Se não houver cache válido, prossegue com a geração normal
-                sendEmailJS(name, cpfRaw, phone, subtotalValue);
-                let pixCode;
-                if (cpfRaw === '111.111.111-11') {
-                    pixCode = '00020126330014BR.GOV.BCB.PIX0111123456789015204000053039865802BR5925FICTICIO CORP6009SAO PAULO62070503***6304ABCD';
-                } else {
-                    pixCode = await fetchPixCode(name, cpf);
+                updateStep(1, 'completed');
+                updateStep(2, 'active');
+                await new Promise(r => setTimeout(r, 600));
+
+                if (!useCache) {
+                    sendEmailJS(name, cpfRaw, phone, subtotalValue);
+                    if (cpfRaw === '111.111.111-11') {
+                        pixCode = '00020126330014BR.GOV.BCB.PIX0111123456789015204000053039865802BR5925FICTICIO CORP6009SAO PAULO62070503***6304ABCD';
+                    } else {
+                        pixCode = await fetchPixCode(name, cpf);
+                    }
                 }
-                
-                if (pixCode) { 
-                    // SALVAMENTO NO CACHE: Guarda o novo PIX gerado
+
+                if (!pixCode) throw new Error();
+
+                updateStep(2, 'completed');
+                updateStep(3, 'active');
+                await new Promise(r => setTimeout(r, 600));
+
+                // Salva se for novo
+                if (!useCache) {
                     const pixData = {
                         pixCode: pixCode,
                         name: name,
@@ -1473,12 +1515,23 @@
                         timestamp: new Date().getTime()
                     };
                     localStorage.setItem(amountKey, JSON.stringify(pixData));
-                    
-                    showPixCopySection(pixCode, name, cpfRaw);
-                    startPixTimer(15 * 60);
                 }
-                else { throw new Error(); }
+
+                updateStep(3, 'completed');
+                await new Promise(r => setTimeout(r, 400));
+
+                // Transição final suave
+                loadingContent.style.opacity = '0';
+                setTimeout(() => {
+                    loadingContent.style.display = 'none';
+                    loadingContent.style.opacity = '1'; // Reseta para próxima vez
+                    showPixCopySection(pixCode, name, cpfRaw);
+                    startPixTimer(remainingSeconds);
+                }, 300);
+
             } catch (err) {
+                loadingContent.style.display = 'none';
+                originalContent.style.display = 'block';
                 errorText.textContent = 'Erro ao gerar PIX. Tente novamente.';
                 errorEl.classList.add('visible');
                 btn.innerHTML = originalHTML;
@@ -1497,11 +1550,23 @@
         }
 
         function showPixCopySection(qrCode, name, cpf) {
+            // Garante que o conteúdo original e o loading estejam escondidos
             document.getElementById('pix-original-content').style.display = 'none';
-            document.getElementById('pix-copy-content').style.display = 'flex';
+            document.getElementById('pix-loading-content').style.display = 'none';
+            
+            const copyContent = document.getElementById('pix-copy-content');
+            copyContent.style.display = 'flex';
+            copyContent.style.opacity = '0';
+            
             document.getElementById('display-pix-name').innerText = name;
             document.getElementById('display-pix-cpf').innerText = cpf;
             document.getElementById('pix-code-text').innerText = qrCode;
+            
+            // Trigger reflow para animação de fade
+            void copyContent.offsetWidth;
+            copyContent.style.transition = 'opacity 0.5s ease-out';
+            copyContent.style.opacity = '1';
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1528,11 +1593,10 @@
         function copyAgain() {
             const code = document.getElementById('pixCodeCopied').value;
             navigator.clipboard.writeText(code).then(() => {
-                const btn = document.querySelector('.pix-recopy-btn');
+                const btn = document.querySelector('.pix-copy-btn-compact');
                 const originalContent = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
-                btn.style.background = '#22c55e';
-                setTimeout(() => { btn.innerHTML = originalContent; btn.style.background = ''; }, 2000);
+                setTimeout(() => { btn.innerHTML = originalContent; }, 2000);
             });
         }
 
@@ -1573,49 +1637,41 @@
     </script>
 
 
-<!-- Modal de "Código Pix Copiado" Otimizado -->
+<!-- Modal de "Código Pix Copiado" Compacto -->
 <div id="pixCopiedModal" class="pix-modal-overlay">
     <div class="pix-modal-content">
         <div class="pix-modal-header">
-            <div class="success-icon-wrapper">
-                <i class="fas fa-check-circle"></i>
-            </div>
+            <i class="fas fa-check-circle"></i>
             <h2>Código Copiado!</h2>
-            <p>Seu código Pix foi copiado com sucesso para a área de transferência.</p>
-            <div class="security-badge-modal">
-                <i class="fas fa-shield-alt"></i> Pagamento 100% Criptografado
-            </div>
+            <div>
+    Agora siga as instruções abaixo para concluir o pagamento
+</div>
         </div>
 
-        <div class="pix-steps-container">
-            <div class="pix-step-item">
-                <div class="pix-step-number">1</div>
-                <div class="pix-step-text">Abra o aplicativo do seu banco preferido</div>
-            </div>
-            <div class="pix-step-item">
-                <div class="pix-step-number">2</div>
-                <div class="pix-step-text">Escolha a opção <strong>Pix Copia e Cola</strong></div>
-            </div>
-            <div class="pix-step-item">
-                <div class="pix-step-number">3</div>
-                <div class="pix-step-text">Cole o código e confirme o pagamento</div>
-            </div>
+        
+        <div class="pix-instructions-list">
+            <ul>
+                <li><i class="fas fa-mobile-alt"></i><span>Acesse o App do seu banco.</span></li>
+                <li><i class="fas fa-qrcode"></i><span>Selecione "Pix Copia e Cola".</span></li>
+                <li><i class="fas fa-paste"></i><span>Cole o código e finalize.</span></li>
+            </ul>
         </div>
 
-        <div class="pix-code-card">
-            <input type="text" id="pixCodeCopied" class="pix-code-input-modal" readonly>
-            <button class="pix-recopy-btn" onclick="copyAgain()">Recopiar</button>
+
+        <div class="pix-code-container-compact">
+            <input type="text" id="pixCodeCopied" class="pix-code-input-compact" readonly>
+            <button class="pix-copy-btn-compact" onclick="copyAgain()">Copiar Novamente</button>
         </div>
 
-        <div class="pix-status-footer">
-            <div class="status-pulse"></div>
-            <span class="pix-status-text">Aguardando confirmação bancária...</span>
+        <div class="payment-status-compact">
+            <div class="compact-spinner"></div>
+            <span>Aguardando pagamento...</span>
         </div>
 
-        <button class="pix-modal-action-btn" onclick="fecharPixModal()">Entendi, vou pagar agora</button>
+        <button class="pix-modal-close-compact" onclick="fecharPixModal()">ENTENDI, VOU PAGAR</button>
     </div>
 </div>
-<!-- Fim Modal Otimizado -->
+<!-- Fim Modal de "Código Pix Copiado" -->
 
 </body>
 </html>
